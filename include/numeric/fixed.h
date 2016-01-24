@@ -5,8 +5,8 @@
 
 #include "../type/type_of_size.h"
 
-#ifdef ATOMS_TYPE_TRAITS
-    #include "../type/type_traits.h"
+#ifdef ATOMS_NO_STDLIB
+    #include "../stdlib/type_traits.h"
 #else
     #include <type_traits>
 #endif
