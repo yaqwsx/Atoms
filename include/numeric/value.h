@@ -111,11 +111,11 @@ struct Accelerated {
     }
 
     template <class S>
-    void process(const T& new_value, const S& step) {
+    T process(const T& new_value, const S& step) {
         if (new_value > value)
-            value = std::min(new_value, value + acceleration * step);
+            value = std::min(new_value, T(value + acceleration * step));
         else
-            value = std::max(new_value, value - decceleration * step);
+            value = std::max(new_value, T(value - decceleration * step));
         return value;
     }
 };
@@ -135,6 +135,11 @@ struct Clamped {
         if (new_value < bottom)
             return bottom;
         return new_value;
+    }
+
+    template <class S>
+    T process(const T& new_value, const S&) {
+        return process(new_value);
     }
 };
 
