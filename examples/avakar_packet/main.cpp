@@ -24,6 +24,9 @@ int main() {
     std::cout << "Push 42 as uint32: " << hex_dump(out.raw(), out.raw_size()) << "\n";
     out.push<float>(42);
     std::cout << "Push 42 as float:  " << hex_dump(out.raw(), out.raw_size()) << "\n";
+    char test[] = { 'A', 'B' };
+    out.push_n<char>(test, sizeof(test));
+    std::cout << "Push string \"AB\":  " << hex_dump(out.raw(), out.raw_size()) << "\n";
 
     // Add garbage to the output and parse it again
     std::cout << "\n=== Reading a packet ===\n";
@@ -43,5 +46,6 @@ int main() {
     std::cout << "Char value:   " << (int)in.get<char>(0) << "\n";
     std::cout << "uint32 value: " << in.get<uint32_t>(1) << "\n";
     std::cout << "float value:  " << in.get<float>(5) << "\n";
+    std::cout << "string:       " << in.get<char>(9) << in.get<char>(10) << "\n";
     return 0;
 }
