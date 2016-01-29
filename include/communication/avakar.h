@@ -39,6 +39,14 @@ public:
         *ptr = data;
         increase_size(sizeof(T));
     }
+
+    template <class T>
+    void push_n(const T* data, uint8_t n) {
+        T* ptr = reinterpret_cast<T*>(buffer + raw_size());
+        for (uint8_t i = 0; i != n; i++, ptr++)
+            *ptr = data[i];
+        increase_size(n * sizeof(T));
+    }
     
     bool push_byte(CharType c) {
         uint8_t cc = c;
@@ -64,12 +72,17 @@ public:
     bool complete() {
         return state == State::DONE;
     }
+
+    template <class T>
+    const T* get_ptr(uint8_t index) {
+        return reinterpret_cast<T*>(buffer + 2 + index);
+    }
     
     template <class T>
     T get(uint8_t index) {
-        T* ptr = reinterpret_cast<T*>(buffer + 2 + index);
-        return *ptr;
+        return *get_ptr<T>(index);
     }
+
 private:
     enum class State { EMPTY, HEADER, COMMAND, IN_PROGRESS, DONE };
     

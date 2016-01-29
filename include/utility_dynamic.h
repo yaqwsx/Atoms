@@ -7,6 +7,10 @@
 #include <iomanip>
 #include <sstream>
 
+namespace atoms {
+
+// Formats bytes to hex numbers separated by colon. It is possible to specify
+// optional number of bytes per line
 std::string hex_dump(const char* data, size_t length, size_t line_len = 0) {
     std::ostringstream s;
     s << std::hex;
@@ -21,4 +25,6 @@ std::string hex_dump(const char* data, size_t length, size_t line_len = 0) {
             s << ":";
     }
     return s.str();
+}
+
 }
