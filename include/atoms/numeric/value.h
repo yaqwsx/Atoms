@@ -86,6 +86,10 @@ public:
         set(new_value);
         return *this;
     }
+    
+    void reset(const ValType& val) {
+        ValueMod<ValType, Modifiers...>::initial(val);
+    }
 
 private:
     ValType value;

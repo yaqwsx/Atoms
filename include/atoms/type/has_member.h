@@ -4,7 +4,11 @@
 // Author: Jan 'yaqwsx' Mrázek
 
 #include <stdint.h>
-#include <type_traits>
+#if defined(ATOMS_NO_STDLIB) || defined(ATOMS_NO_STDLIB11)
+    #include "../stdlib/type_traits.h"
+#else
+    #include <type_traits>
+#endif
 
 namespace atoms {
 

@@ -5,7 +5,7 @@
 
 #include "../type/type_of_size.h"
 
-#ifdef ATOMS_NO_STDLIB
+#if defined(ATOMS_NO_STDLIB) || defined(ATOMS_NO_STDLIB11)
     #include "../stdlib/type_traits.h"
 #else
     #include <type_traits>

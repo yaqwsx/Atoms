@@ -46,5 +46,17 @@ int main() {
     std::cout << "First field:  " << in.get<uint32_t>(0) << "\n";
     std::cout << "Second field: " << in.get<float>(4) << "\n";
 
+    std::cout << "=== Packet with no data ===\n";
+    uint8_t data2[] = { 0x80, 0x0f, 0x01, 0x00 };
+    MyPacket in2;
+
+    i = 0;
+    while (!in2.push_byte(data2[i]))
+        i++;
+
+    std::cout << "Size:         " << in2.get_size() << "\n";
+    std::cout << "Command:      " << in2.get_command() << "\n";
+    std::cout << "Address:      " << in2.get_address() << "\n";
+
     return 0;
 }

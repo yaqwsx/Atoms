@@ -4,7 +4,11 @@
 // Author: Jan 'yaqwsx' Mrázek
 
 #include <stdint.h>
-#include <type_traits>
+#if defined(ATOMS_NO_STDLIB) || defined(ATOMS_NO_STDLIB11)
+    #include "../stdlib/type_traits.h"
+#else
+    #include <type_traits>
+#endif
 #include "../type/has_member.h"
 
 namespace atoms {
@@ -25,6 +29,7 @@ class PacketPart {
 public:
     PacketPart() : counter(0), loaded(0) {};
     bool push_byte(uint8_t, size_t, size_t) { return true; };
+    bool prepare(size_t, size_t) { return false; }
 protected:
     constexpr static size_t static_size  = SIZE;
     constexpr static size_t data_size    = DATA_SIZE;
@@ -148,9 +153,16 @@ public:
     }
 
     bool push_byte(uint8_t c, size_t count, size_t size) {
-        if (count != 0)
+        if (count != 0) {
             return Parent::push_byte(c, count - 1, size);
+        }
         return Object::push_byte(c, Base::buffer + OFFSET, Base::counter, size);
+    }
+    
+    bool prepare(size_t count, size_t size) {
+        if (count != 0)
+            return Parent::prepare(count - 1, size);
+        return Object::prepare(size);
     }
 
 protected:
@@ -256,6 +268,8 @@ public:
         if (Parent::push_byte(c, Base::loaded, get_data_size())) {
             Base::loaded++;
             Base::counter = 0;
+            while (Parent::prepare(Base::loaded, get_data_size()))
+                Base::loaded++; // Skip parts with no length
         }
         return complete();
     }
@@ -280,6 +294,10 @@ struct Static {
         if (c == buffer[counter])
             counter++;
         return counter == static_size;
+    }
+    
+    static bool prepare(size_t) {
+        return false;
     }
 };
 
@@ -318,6 +336,10 @@ struct Command {
         counter++;
         return counter == static_size;
     }
+    
+    static bool prepare(size_t) {
+        return false;
+    }
 };
 
 using CommandU8 = Command<uint8_t>;
@@ -349,6 +371,10 @@ struct Address {
         buffer[counter] = c;
         counter++;
         return counter == static_size;
+    }
+    
+    static bool prepare(size_t) {
+        return false;
     }
 };
 
@@ -382,6 +408,10 @@ struct Size {
         counter++;
         return counter == static_size;
     }
+    
+    static bool prepare(size_t) {
+        return false;
+    }
 };
 
 using SizeU8 = Size<uint8_t>;
@@ -412,6 +442,10 @@ struct BoundedData {
         buffer[counter] = c;
         counter++;
         return counter == size;
+    }
+    
+    static bool prepare(size_t size) {
+        return size == 0;
     }
 };
 
