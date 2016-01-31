@@ -1,5 +1,5 @@
-#include <communication/packet.h>
-#include <utility_dynamic.h>
+#include <atoms/communication/packet.h>
+#include <atoms/utility_dynamic.h>
 #include <iostream>
 #include <algorithm>
 
@@ -14,8 +14,8 @@ using namespace atoms;
 
 int main() {
     // We define our own packet structure. If none of the predefined components
-    // fits the needs, new component can be defined. Only bounded data buffers
-    // are currently supported (here you can create packet with up to 32 bytes
+    // fits the needs, a new component can be defined. Only bounded data buffers
+    // are currently supported (here you can create a packet with up to 32 bytes
     // of data)
     using MyPacket = Packet <
         StaticU8<0x80>, CommandU8, AddressU8, SizeU8, BoundedData < 32 >>;

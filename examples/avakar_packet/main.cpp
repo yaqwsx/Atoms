@@ -1,5 +1,5 @@
-#include <communication/avakar.h>
-#include <utility_dynamic.h>
+#include <atoms/communication/avakar.h>
+#include <atoms/utility_dynamic.h>
 #include <iostream>
 #include <algorithm>
 

@@ -5,7 +5,7 @@
 
 #include <stdint.h>
 #include <type_traits>
-#include <type/has_member.h>
+#include "../type/has_member.h"
 
 namespace atoms {
 

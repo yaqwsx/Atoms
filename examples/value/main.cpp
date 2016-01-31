@@ -1,4 +1,4 @@
-#include <numeric/value.h>
+#include <atoms/numeric/value.h>
 #include <iostream>
 
 // This file is part of 'Atoms' library - https://github.com/yaqwsx/atoms
