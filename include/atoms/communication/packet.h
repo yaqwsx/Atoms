@@ -178,7 +178,7 @@ protected:
         (has_member_set_command<Object>::value && has_member_get_command<Object>::value);
     constexpr static bool has_address = Parent::has_address |
         (has_member_set_address<Object>::value && has_member_get_address<Object>::value);
-    constexpr static bool has_data    = Parent::has_address |
+    constexpr static bool has_data    = Parent::has_data |
         (has_member_push_data<Object>::value && has_member_get_data<Object>::value);
 };
 

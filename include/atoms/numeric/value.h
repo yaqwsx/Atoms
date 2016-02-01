@@ -82,6 +82,8 @@ public:
         return value;
     }
 
+    Value& operator=(const Value&) = default;
+
     Value& operator=(const ValType& new_value) {
         set(new_value);
         return *this;

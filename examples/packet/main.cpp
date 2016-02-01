@@ -58,5 +58,9 @@ int main() {
     std::cout << "Command:      " << in2.get_command() << "\n";
     std::cout << "Address:      " << in2.get_address() << "\n";
 
+    using AppPacket = Packet<StaticU8<0x80>, SizeU8, CommandU8, BoundedData<48>>;
+    AppPacket t;
+    t.get<float>(0);
+
     return 0;
 }

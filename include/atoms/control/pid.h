@@ -40,7 +40,7 @@ public:
     }
     
     void reset() {
-        state = State();
+        state = State(params.bottom, params.top);
     }
     
     T step(T input, T desired_value) {
