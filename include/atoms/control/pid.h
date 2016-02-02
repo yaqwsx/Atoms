@@ -45,7 +45,7 @@ public:
     
     T step(T input, T desired_value) {
         T error(desired_value - input);
-        state.integrator += params.i * error;
+        state.integrator = state.integrator.get() + params.i * error;
             
         Value<T, Clamped> output(params.p * error + state.integrator
             - params.d * (input - state.last_input),

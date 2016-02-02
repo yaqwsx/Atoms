@@ -15,7 +15,9 @@ namespace atoms {
 template <class ValType, template <class> class... Modifiers>
 class ValueMod {
 protected:
-    void initial(const ValType&) { }
+    ValType initial(const ValType& v) {
+        return v;
+    }
 
     ValType set(const ValType& value) {
         return value;
@@ -34,9 +36,9 @@ public:
     ValueMod(T<ValType> modifier, Modifiers<ValType>... modifiers)
         : ValueMod<ValType, Modifiers...>(modifiers...), modifier(modifier) {}
 protected:
-    void initial(const ValType& value) {
+    ValType initial(const ValType& value) {
         auto new_val = modifier.process(value);
-        ValueMod<ValType, Modifiers...>::initial(new_val);
+        return ValueMod<ValType, Modifiers...>::initial(new_val);
     }
 
     ValType set(const ValType& value) {
@@ -59,10 +61,10 @@ private:
 template <class ValType, template <class> class... Modifiers>
 class Value : ValueMod<ValType, Modifiers...> {
 public:
-    Value(ValType value, Modifiers<ValType>... modifiers)
-        : ValueMod<ValType, Modifiers...>(modifiers...), value(value)
+    Value(ValType val, Modifiers<ValType>... modifiers)
+        : ValueMod<ValType, Modifiers...>(modifiers...)
     {
-        ValueMod<ValType, Modifiers...>::initial(value);
+        value = ValueMod<ValType, Modifiers...>::initial(val);
     }
 
     void set(const ValType& new_value) {

@@ -13,7 +13,7 @@
 
 namespace atoms {
 
-/*template <bit_width_type I, bit_width_type F>
+template <bit_width_type I, bit_width_type F>
 Fixed<I, F> multiply(const Fixed<I, F>& l, const Fixed<I, F>& r,
 typename std::enable_if<type_of_size<I + F>::next_type::is_specialised>::type* = 0)
 {
@@ -25,11 +25,11 @@ typename std::enable_if<type_of_size<I + F>::next_type::is_specialised>::type* =
 	result >>= F;
 
 	return Fixed<I, F>::from_raw(static_cast<base_type>(result));
-}*/
+}
 
-template <bit_width_type I, bit_width_type F>
-Fixed<I, F> multiply(const Fixed<I, F>& l, const Fixed<I, F>& r/*,
-typename std::enable_if<!type_of_size<I + F>::next_type::is_specialised>::type* = 0*/)
+/*template <bit_width_type I, bit_width_type F>
+Fixed<I, F> multiply(const Fixed<I, F>& l, const Fixed<I, F>& r*//*,
+typename std::enable_if<!type_of_size<I + F>::next_type::is_specialised>::type* = 0*//*)
 {
 	using base_type = typename Fixed<I, F>::base_type;
 
@@ -44,7 +44,7 @@ typename std::enable_if<!type_of_size<I + F>::next_type::is_specialised>::type* 
 	const base_type fraction = l_fra * r_fra;
 
 	return Fixed<I, F>::from_raw((integer << F) + middle1 + middle2 + (fraction >> F));
-}
+}*/
 
 template<bit_width_type I, bit_width_type F>
 Fixed<I, F> divide(const Fixed<I, F>& n, const Fixed<I, F>& d,
@@ -175,7 +175,7 @@ public:
 
 	Fixed& operator*=(const Fixed& o) {
 		//this = std::move(multiply(*this, o));
-		this = multiply(*this, o);
+		*this = multiply(*this, o);
 		return *this;
 	}
 
@@ -185,7 +185,7 @@ public:
 
 	Fixed& operator/=(const Fixed& o) {
 		//this = std::move(divice(*this, o));
-		this = divide(*this, o);
+		*this = divide(*this, o);
 		return *this;
 	}
 

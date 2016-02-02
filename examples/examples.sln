@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "packet", "packet\packet.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "average", "average\average.vcxproj", "{173E8EF8-3841-4C59-A37C-FA1A35825E92}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fixedpoint_numbers", "fixedpoint_numbers\fixedpoint_numbers.vcxproj", "{9DE40D85-27D1-4026-B826-1E5A20A47A97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -55,6 +57,14 @@ Global
 		{173E8EF8-3841-4C59-A37C-FA1A35825E92}.Release|x64.Build.0 = Release|x64
 		{173E8EF8-3841-4C59-A37C-FA1A35825E92}.Release|x86.ActiveCfg = Release|Win32
 		{173E8EF8-3841-4C59-A37C-FA1A35825E92}.Release|x86.Build.0 = Release|Win32
+		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Debug|x64.ActiveCfg = Debug|x64
+		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Debug|x64.Build.0 = Debug|x64
+		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Debug|x86.ActiveCfg = Debug|Win32
+		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Debug|x86.Build.0 = Debug|Win32
+		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Release|x64.ActiveCfg = Release|x64
+		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Release|x64.Build.0 = Release|x64
+		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Release|x86.ActiveCfg = Release|Win32
+		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +74,6 @@ Global
 		{729E2AA7-8AC3-4C32-8002-18978FB13984} = {D3102504-86BC-439B-BA79-D5C6E41CE975}
 		{D535A14D-3725-4021-AED1-64FFBA24EA3C} = {D3102504-86BC-439B-BA79-D5C6E41CE975}
 		{173E8EF8-3841-4C59-A37C-FA1A35825E92} = {D3102504-86BC-439B-BA79-D5C6E41CE975}
+		{9DE40D85-27D1-4026-B826-1E5A20A47A97} = {D3102504-86BC-439B-BA79-D5C6E41CE975}
 	EndGlobalSection
 EndGlobal

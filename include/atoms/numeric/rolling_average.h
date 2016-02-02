@@ -33,6 +33,10 @@ public:
     T get_average() {
         return sum / T(SIZE);
     }
+
+    T get_sum() {
+        return sum;
+    }
 private:
     std::array<T, SIZE> values;
     T sum;
