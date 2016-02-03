@@ -47,5 +47,7 @@ int main() {
     std::cout << "uint32 value: " << in.get<uint32_t>(1) << "\n";
     std::cout << "float value:  " << in.get<float>(5) << "\n";
     std::cout << "string:       " << in.get<char>(9) << in.get<char>(10) << "\n";
+
+    // Note: To reuse packet in, call in.reset()
     return 0;
 }
