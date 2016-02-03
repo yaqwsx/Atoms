@@ -65,10 +65,10 @@ public:
             if (state != State::DONE && state != State::EMPTY)
                 throw std::runtime_error("Avakar packet: get on incomplete packet");
         #endif
+        increase_size(sizeof(T));
         state = State::DONE;
         T* ptr = reinterpret_cast<T*>(buffer + raw_size());
         *ptr = data;
-        increase_size(sizeof(T));
     }
 
     // appends array of n same vales to packet, see push
@@ -79,11 +79,11 @@ public:
             if (state != State::DONE && state != State::EMPTY)
                 throw std::runtime_error("Avakar packet: get on incomplete packet");
         #endif
+        increase_size(n * sizeof(T));
         state = State::DONE;
         T* ptr = reinterpret_cast<T*>(buffer + raw_size());
         for (uint8_t i = 0; i != n; i++, ptr++)
-            *ptr = data[i];
-        increase_size(n * sizeof(T));
+            *ptr = data[i]; 
     }
     
     // deserialize the packet using the byte. If the byte leads to complete
