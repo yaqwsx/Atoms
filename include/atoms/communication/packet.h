@@ -10,6 +10,8 @@
     #include <type_traits>
 #endif
 #include "../type/has_member.h"
+#include "../utility_static.h"
+
 
 namespace atoms {
 
@@ -286,8 +288,7 @@ struct Static {
     constexpr static size_t data_size   = 0;
 
     static void init(uint8_t* buffer) {
-        T* ptr = reinterpret_cast<T*>(buffer);
-        *ptr = VALUE;
+        store<T>(buffer, VALUE);
     }
 
     static bool push_byte(uint8_t c, uint8_t* buffer, size_t& counter, size_t) {
@@ -317,18 +318,15 @@ struct Command {
     constexpr static size_t data_size = 0;
 
     static void init(uint8_t* buffer) {
-        T* ptr = reinterpret_cast<T*>(buffer);
-        *ptr = 0;
+        store<T>(buffer, 0);
     }
 
     static void set_command(uint8_t* buffer, const T& command) {
-        T* ptr = reinterpret_cast<T*>(buffer);
-        *ptr = command;
+        store<T>(buffer, command);
     }
 
     static size_t get_command(const uint8_t* buffer) {
-        const T* ptr = reinterpret_cast<const T*>(buffer);
-        return *ptr;
+        return load<T>(buffer);
     }
 
     static bool push_byte(uint8_t c, uint8_t* buffer, size_t& counter, size_t) {
@@ -353,18 +351,15 @@ struct Address {
     constexpr static size_t data_size = 0;
 
     static void init(uint8_t* buffer) {
-        T* ptr = reinterpret_cast<T*>(buffer);
-        *ptr = 0;
+        store<T>(buffer, 0);
     }
 
     static void set_address(uint8_t* buffer, const T& address) {
-        T* ptr = reinterpret_cast<T*>(buffer);
-        *ptr = address;
+        store<T>(buffer, address);
     }
 
     static size_t get_address(const uint8_t* buffer) {
-        const T* ptr = reinterpret_cast<const T*>(buffer);
-        return *ptr;
+        return load<T>(buffer);
     }
 
     static bool push_byte(uint8_t c, uint8_t* buffer, size_t& counter, size_t) {
@@ -394,13 +389,13 @@ struct Size {
     }
 
     static void increase_size(uint8_t* buffer, const T& inc) {
-        T* ptr = reinterpret_cast<T*>(buffer);
-        *ptr += inc;
+        T val = load<T>(buffer);
+        val += inc;
+        store<T>(buffer, val);
     }
 
     static size_t get_data_size(const uint8_t* buffer) {
-        const T* ptr = reinterpret_cast<const T*>(buffer);
-        return *ptr;
+        return load<T>(buffer);
     }
 
     static bool push_byte(uint8_t c, uint8_t* buffer, size_t& counter, size_t) {
@@ -428,14 +423,13 @@ struct BoundedData {
 
     template <class T, class Packet>
     static void push_data(uint8_t* buffer, const T& data, Packet& p) {
-        T* ptr = reinterpret_cast<T*>(buffer + p.get_data_size());
-        *ptr = data;
+        store<T>(buffer + p.get_data_size(), data);
         p.increase_size(sizeof(T));
     }
 
     template <class T>
     static T get_data(const uint8_t* buffer, size_t offset) {
-        return *reinterpret_cast<const T*>(buffer + offset);
+        return load<T>(buffer + offset);
     }
 
     static bool push_byte(uint8_t c, uint8_t* buffer, size_t& counter, size_t size) {
