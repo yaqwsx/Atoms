@@ -120,11 +120,11 @@ public:
 		return !data;
 	}
 
-	bool operator~() const {
+	Fixed operator~() const {
 		return from_raw(~data);
 	}
 
-	bool operator-() const {
+	Fixed operator-() const {
 		// ToDo: Is this correct?
 		return from_raw(-data);
 	}
