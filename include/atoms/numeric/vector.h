@@ -78,8 +78,8 @@ struct Vector2D {
     }
 
     template <class O>
-    Vector2D& operator/(const O& o) {
-        return { x / o, y / o};
+    Vector2D operator/(const O& o) {
+        return { x / o, y / o };
     }
 
     Vector2D normalized() {
