@@ -131,6 +131,8 @@ public:
             idx++;
             if (idx == raw_size())
                 state = State::DONE;
+        case State::DONE:
+            break; // Do nothing
         }
         return complete();
     }
@@ -153,7 +155,7 @@ private:
         #ifndef ATOMS_NO_EXCEPTION
             if (state != State::DONE)
                 throw std::runtime_error("Avakar packet: get on incomplete packet");
-            if (index + sizeof(T) > size())
+            if (index + sizeof(T) > static_cast<uint8_t>(size()))
                 throw std::runtime_error("Avakar packet: index out of range");
         #endif
         return reinterpret_cast<T*>(buffer + 2 + index);
@@ -171,7 +173,7 @@ public:
          #ifndef ATOMS_NO_EXCEPTION
             if (state != State::DONE)
                 throw std::runtime_error("Avakar packet: get on incomplete packet");
-            if (index + sizeof(T) > size())
+            if (index + sizeof(T) > static_cast<uint8_t>(size()))
                 throw std::runtime_error("Avakar packet: index out of range");
         #endif
         #ifdef __arm__

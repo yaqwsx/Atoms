@@ -5,7 +5,7 @@ ifdef SystemRoot
 	RM = del /Q
 endif
 
-ARGS = -I../../include -std=c++14
+ARGS = -I../../include -std=c++14 -Wall
 
 
 all: value

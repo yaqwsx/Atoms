@@ -84,7 +84,7 @@ struct Vector2D {
 
     Vector2D normalized() {
         auto l = length();
-        return { x / length, y / length };
+        return { x / l, y / l };
     }
 };
 
