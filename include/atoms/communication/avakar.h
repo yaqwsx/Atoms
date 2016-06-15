@@ -5,7 +5,7 @@
 
 #include <stdint.h>
 #ifndef ATOMS_NO_EXCEPTION
-    #include <exception>
+    #include <stdexcept>
 #endif
 
 // Be aware! ARM is dumb! It doesn't support unaligned access to memory and
