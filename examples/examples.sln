@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3102504-86BC-439B-BA79-D5C6E41CE975}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,6 +16,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "average", "average\average.vcxproj", "{173E8EF8-3841-4C59-A37C-FA1A35825E92}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fixedpoint_numbers", "fixedpoint_numbers\fixedpoint_numbers.vcxproj", "{9DE40D85-27D1-4026-B826-1E5A20A47A97}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tagged", "tagged\tagged.vcxproj", "{E4BBAF26-37C5-4C99-A07B-60693EF461F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,14 @@ Global
 		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Release|x64.Build.0 = Release|x64
 		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Release|x86.ActiveCfg = Release|Win32
 		{9DE40D85-27D1-4026-B826-1E5A20A47A97}.Release|x86.Build.0 = Release|Win32
+		{E4BBAF26-37C5-4C99-A07B-60693EF461F3}.Debug|x64.ActiveCfg = Debug|x64
+		{E4BBAF26-37C5-4C99-A07B-60693EF461F3}.Debug|x64.Build.0 = Debug|x64
+		{E4BBAF26-37C5-4C99-A07B-60693EF461F3}.Debug|x86.ActiveCfg = Debug|Win32
+		{E4BBAF26-37C5-4C99-A07B-60693EF461F3}.Debug|x86.Build.0 = Debug|Win32
+		{E4BBAF26-37C5-4C99-A07B-60693EF461F3}.Release|x64.ActiveCfg = Release|x64
+		{E4BBAF26-37C5-4C99-A07B-60693EF461F3}.Release|x64.Build.0 = Release|x64
+		{E4BBAF26-37C5-4C99-A07B-60693EF461F3}.Release|x86.ActiveCfg = Release|Win32
+		{E4BBAF26-37C5-4C99-A07B-60693EF461F3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,5 +85,6 @@ Global
 		{D535A14D-3725-4021-AED1-64FFBA24EA3C} = {D3102504-86BC-439B-BA79-D5C6E41CE975}
 		{173E8EF8-3841-4C59-A37C-FA1A35825E92} = {D3102504-86BC-439B-BA79-D5C6E41CE975}
 		{9DE40D85-27D1-4026-B826-1E5A20A47A97} = {D3102504-86BC-439B-BA79-D5C6E41CE975}
+		{E4BBAF26-37C5-4C99-A07B-60693EF461F3} = {D3102504-86BC-439B-BA79-D5C6E41CE975}
 	EndGlobalSection
 EndGlobal
