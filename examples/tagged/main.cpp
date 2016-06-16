@@ -39,5 +39,8 @@ int main() {
     std::cout << "a = " << to_str_v(a) << ", b = " << to_str_v(b) << "\n";
     std::cout << "a + b = " << to_str_v(a + b) << "\n";
 
+    a -= b;
+    std::cout << "Modified a = " << to_str_v(a) << "\n";
+
     return 0;
 }

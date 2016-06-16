@@ -76,10 +76,24 @@ auto operator op (const Tagged<Base1, TagType, TagMerge>& a, const Tagged<Base2,
     return res; \
 }
 
+#define GENERATE_TAGGED_SHORT_OPERATOR(op, opcode) \
+template <class Base1, class Base2, class TagType, class TagMerge> \
+auto operator op (Tagged<Base1, TagType, TagMerge>& a, const Tagged<Base2, TagType, TagMerge>& b) \
+    -> Tagged<Base1, TagType, TagMerge>& \
+{ \
+    (*static_cast<Base1*>(&a)) op (*static_cast<const Base2*>(&b)); \
+    a.tag = TagMerge::merge(opcode, a.tag, b.tag); \
+    return a; \
+}
+
 GENERATE_TAGGED_OPERATOR(-, Operator::SUBTRACT);
+GENERATE_TAGGED_SHORT_OPERATOR(-=, Operator::SUBTRACT);
 GENERATE_TAGGED_OPERATOR(+, Operator::ADD);
+GENERATE_TAGGED_SHORT_OPERATOR(+=, Operator::ADD);
 GENERATE_TAGGED_OPERATOR(*, Operator::MULTIPLY);
+GENERATE_TAGGED_SHORT_OPERATOR(*=, Operator::MULTIPLY);
 GENERATE_TAGGED_OPERATOR(/, Operator::DIVIDE);
+GENERATE_TAGGED_SHORT_OPERATOR(/=, Operator::DIVIDE);
 // ToDo: Other operators
 
 } // namespace atoms
