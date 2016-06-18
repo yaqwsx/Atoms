@@ -78,7 +78,7 @@ struct Vector2D {
     }
 
     template <class O>
-    Vector2D operator/(const O& o) {
+    Vector2D operator/(const O& o) const {
         return { x / o, y / o };
     }
 
