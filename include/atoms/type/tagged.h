@@ -24,7 +24,18 @@ struct NoTagMerge {
     }
 };
 
-template <class Type>
+template <class Type, bool EqualSensitive = true>
+struct KeepLeftMerge {
+    static Type merge(Operator, const Type& a, const Type&) {
+        return a;
+    }
+
+    static bool equal(const Type& a, const Type& b) {
+        return !EqualSensitive || a == b;
+    }
+};
+
+template <class Type, bool EqualSensitive = true>
 struct OperatorMerge {
     static Type merge(Operator op, const Type& a, const Type& b) {
         switch(op) {
@@ -42,7 +53,7 @@ struct OperatorMerge {
     }
 
     static bool equal(const Type& a, const Type& b) {
-        return a == b;
+        return !EqualSensitive || a == b;
     }
 };
 
@@ -52,8 +63,11 @@ template <class Base, class TagType = std::tuple<>, class TagMerge = NoTagMerge>
 struct Tagged : public Base {
     using Base::Base;
 
-    Tagged& operator=(const Base& b) { Base::oeprator=(b); }
-    Tagged(const Base& b) : Base(b) {}
+    Tagged& operator=(const Tagged& b) { Base::operator=(b); tag = b.tag; }
+    Tagged& operator=(const Base& b) { Base::operator=(b); }
+
+    Tagged(const Tagged& b) : Base(b), tag(b.tag) {}
+    Tagged(const Base& b) : Base(b), tag(42) {}
 
     template <class... Args>
     static Tagged make_tagged(const TagType& t, Args... args) {
@@ -65,26 +79,46 @@ struct Tagged : public Base {
     TagType tag;
 };
 
-#define GENERATE_TAGGED_OPERATOR(op, opcode) \
-template <class Base1, class Base2, class TagType, class TagMerge> \
-auto operator op (const Tagged<Base1, TagType, TagMerge>& a, const Tagged<Base2, TagType, TagMerge>& b) \
-    -> Tagged<decltype(std::declval<Base1>() op std::declval<Base2>()), TagType, TagMerge> \
-{ \
+#define GENERATE_TAGGED_OPERATOR(op, opcode)                                                              \
+template <class Base1, class Base2, class TagType, class TagMerge>                                        \
+auto operator op (const Tagged<Base1, TagType, TagMerge>& a, const Tagged<Base2, TagType, TagMerge>& b)   \
+    -> Tagged<decltype(std::declval<Base1>() op std::declval<Base2>()), TagType, TagMerge>                \
+{                                                                                                         \
     using  ResType = Tagged<decltype(std::declval<Base1>() op std::declval<Base2>()), TagType, TagMerge>; \
-    ResType res = (*static_cast<const Base1*>(&a)) op (*static_cast<const Base2*>(&b)); \
-    res.tag = TagMerge::merge(opcode, a.tag, b.tag); \
-    return res; \
-}
+    ResType res = (*static_cast<const Base1*>(&a)) op (*static_cast<const Base2*>(&b));                   \
+    res.tag = TagMerge::merge(opcode, a.tag, b.tag);                                                      \
+    return res;                                                                                           \
+}                                                                                                         \
+                                                                                                          \
+template <class Base1, class Other, class TagType, class TagMerge>                                        \
+auto operator op (const Tagged<Base1, TagType, TagMerge>& a, const Other& b)                              \
+    -> Tagged<decltype(std::declval<Base1>() op std::declval<Other>()), TagType, TagMerge>                \
+{                                                                                                         \
+    using  ResType = Tagged<decltype(std::declval<Base1>() op std::declval<Other>()), TagType, TagMerge>; \
+    ResType res = (*static_cast<const Base1*>(&a)) op b;                                                  \
+    res.tag = a.tag;                                                                                      \
+    return res;                                                                                           \
+}                                                                                                         \
 
-#define GENERATE_TAGGED_SHORT_OPERATOR(op, opcode) \
-template <class Base1, class Base2, class TagType, class TagMerge> \
+
+#define GENERATE_TAGGED_SHORT_OPERATOR(op, opcode)                                                \
+template <class Base1, class Base2, class TagType, class TagMerge>                                \
 auto operator op (Tagged<Base1, TagType, TagMerge>& a, const Tagged<Base2, TagType, TagMerge>& b) \
-    -> Tagged<Base1, TagType, TagMerge>& \
-{ \
-    (*static_cast<Base1*>(&a)) op (*static_cast<const Base2*>(&b)); \
-    a.tag = TagMerge::merge(opcode, a.tag, b.tag); \
-    return a; \
-}
+    -> Tagged<Base1, TagType, TagMerge>&                                                          \
+{                                                                                                 \
+    (*static_cast<Base1*>(&a)) op (*static_cast<const Base2*>(&b));                               \
+    a.tag = TagMerge::merge(opcode, a.tag, b.tag);                                                \
+    return a;                                                                                     \
+}                                                                                                 \
+                                                                                                  \
+template <class Base1, class Other, class TagType, class TagMerge>                                \
+auto operator op (Tagged<Base1, TagType, TagMerge>& a, const Other& b)                            \
+    -> Tagged<Base1, TagType, TagMerge>&                                                          \
+{                                                                                                 \
+    (*static_cast<Base1*>(&a)) op b;                                                              \
+    return a;                                                                                     \
+}                                                                                                 \
+
 
 GENERATE_TAGGED_OPERATOR(-, Operator::SUBTRACT);
 GENERATE_TAGGED_SHORT_OPERATOR(-=, Operator::SUBTRACT);
