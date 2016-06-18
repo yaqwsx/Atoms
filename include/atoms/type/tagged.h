@@ -59,7 +59,8 @@ struct OperatorMerge {
 
 // Adds a tag to an arbitrary class or structure, keeping operator definitions
 // and providing tag merge procedure
-template <class Base, class TagType = std::tuple<>, class TagMerge = NoTagMerge>
+template <class Base, class TagType = std::tuple<>,
+    class TagMerge = KeepLeftMerge<TagType>>
 struct Tagged : public Base {
     using Base::Base;
 
