@@ -30,6 +30,11 @@ struct KeepLeftMerge {
         return a;
     }
 
+    template <class T>
+    static Type merge(Operator op, const Type& a, const T& b) {
+        return a;
+    }
+
     static bool equal(const Type& a, const Type& b) {
         return !EqualSensitive || a == b;
     }
@@ -38,6 +43,22 @@ struct KeepLeftMerge {
 template <class Type, bool EqualSensitive = true>
 struct OperatorMerge {
     static Type merge(Operator op, const Type& a, const Type& b) {
+        switch(op) {
+            case Operator::ADD:
+                return a + b;
+            case Operator::SUBTRACT:
+                return a - b;
+            case Operator::MULTIPLY:
+                return a * b;
+            case Operator::DIVIDE:
+                return a / b;
+            default:
+                assert(false && "Unsupported operation");
+        }
+    }
+
+    template <class T>
+    static Type merge(Operator op, const Type& b, const T& a) {
         switch(op) {
             case Operator::ADD:
                 return a + b;
@@ -68,7 +89,7 @@ struct Tagged : public Base {
     Tagged& operator=(const Base& b) { Base::operator=(b); }
 
     Tagged(const Tagged& b) : Base(b), tag(b.tag) {}
-    Tagged(const Base& b) : Base(b), tag(42) {}
+    Tagged(const Base& b) : Base(b) {}
 
     template <class... Args>
     static Tagged make_tagged(const TagType& t, Args... args) {
@@ -98,6 +119,16 @@ auto operator op (const Tagged<Base1, TagType, TagMerge>& a, const Other& b)    
     using  ResType = Tagged<decltype(std::declval<Base1>() op std::declval<Other>()), TagType, TagMerge>; \
     ResType res = (*static_cast<const Base1*>(&a)) op b;                                                  \
     res.tag = a.tag;                                                                                      \
+    return res;                                                                                           \
+}                                                                                                         \
+                                                                                                          \
+template <class Base1, class Other, class TagType, class TagMerge>                                        \
+auto operator op (const Other& a, const Tagged<Base1, TagType, TagMerge>& b)                              \
+    -> Tagged<decltype(std::declval<Other>() op std::declval<Base1>()), TagType, TagMerge>                \
+{                                                                                                         \
+    using  ResType = Tagged<decltype(std::declval<Other>() op std::declval<Base1>()), TagType, TagMerge>; \
+    ResType res = a op (*static_cast<const Base1*>(&b));                                                  \
+    res.tag = TagMerge::merge(opcode, b.tag, a);                                                                                      \
     return res;                                                                                           \
 }                                                                                                         \
 

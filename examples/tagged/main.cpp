@@ -42,5 +42,9 @@ int main() {
     a -= b;
     std::cout << "Modified a = " << to_str_v(a) << "\n";
 
+    using V2T2 = Tagged<Vector2D<int>, int, KeepLeftMerge<int>>;
+    auto c = V2T2::make_tagged(1, 1, 1);
+    std::cout << "42 * c: " << to_str_v(42 * c) << "\n";
+
     return 0;
 }
