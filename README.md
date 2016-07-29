@@ -12,23 +12,28 @@ of your compiler. Then your can simply write e.g `#include <atoms/type/tagged.h>
 to use tagged types.
 
 The library is meant to be compiled using C++14 standard, however many parts of
-the library can be used with C++11. Library is tested in GCC 5, Clang 3.7 and
-Visual Studio 2015.
+the library can be used with C++11. Library is tested in GCC 5, Clang 3.7 using
+Travis CI.
 
-## Examples
+## Current Status
+
+[![Build Status](https://travis-ci.org/yaqwsx/atoms.png)](https://travis-ci.org/yaqwsx/atoms)
+
+## Examples & Tests
 
 There is currently no pretty documentation e.g. in form of Doxygen (I hope this
 will change in the future), however every part of the library features an
 example in the [examples](examples) directory.
 
-Examples are built using CMake. If you use Linux-like environment, just issue
-these commands to build the examples:
+Examples and tests are built using CMake. If you use Linux-like environment,
+just issue these commands to build the examples:
 
 ```
 mkdir build; cd build
 cmake ..; make
 ```
-Example executables can be found in `build/examples`
+Example executables can be found in `build/examples`. Tests sources are located
+in the `tests` directory. The test binary can be found in `build/tests`.
 
 If you use Windows environment, use an IDE supporting CMake, Cygwin or generate
 Visual Studio project using CMake.
