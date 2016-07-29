@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 PROJECT(AtomsTests)
 INCLUDE(ExternalProject)
 
+FIND_PACKAGE(Git)
+
 # Get Catch framework: https://github.com/philsquared/Catch/
 ExternalProject_Add(
     catch
