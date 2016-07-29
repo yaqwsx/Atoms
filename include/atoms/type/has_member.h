@@ -28,9 +28,9 @@ private:                                                                        
     struct Derived : T, Fallback { };                                             \
                                                                                   \
     template < class U >                                                          \
-    static No& test ( decltype(U::member)* );                                     \
+    static No& test ( decltype(&U::member) );                                     \
     template < typename U >                                                       \
-    static Yes& test ( U* );                                                      \
+    static Yes& test ( ... );                                                      \
                                                                                   \
 public:                                                                           \
     static constexpr bool RESULT = sizeof(test<Derived>(nullptr)) == sizeof(Yes); \
