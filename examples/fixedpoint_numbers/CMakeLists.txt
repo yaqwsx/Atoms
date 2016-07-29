@@ -1,0 +1,2 @@
+INCLUDE_DIRECTORIES(${ATOMS_INCLUDE})
+ADD_EXECUTABLE(fixedpoint_numbers main.cpp)

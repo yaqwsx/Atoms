@@ -1,30 +1,39 @@
 # Atoms
 
-C++14 support library containing various features useful in my projects. Many
-parts of the library target to application in MCUs (AVR and Cortex ARM), thus
-there can be two versions of the same thing - one resolves as much as possible
-during compile time, the second one does not push so hard on compile time
-resolving and tries to be simple or does not contain limitation (e.g. no dynamic
-memory).
+Atoms is a general support C++14 library containing various useful features used
+in my projects. Many parts of the library target to application in MCUs (AVR and
+Cortex ARM).
 
 ## Usage
 
-For now, the library is header only (may change in the future) and uses
-namespace `atoms`. To use it, just add directory `include` to the include path of
-your compiler. Then your can simply write e.g `#include <atoms/type/tagged.h>` 
+For now, the library is header only (may change in the future) and uses the
+namespace `atoms`. To use it, just add directory `include` to the include path
+of your compiler. Then your can simply write e.g `#include <atoms/type/tagged.h>`
 to use tagged types.
 
-The library is meant to be compiled using C++14 standard, however many parts
-of the library can be used with C++11. Library is tested using GCC 5, Clang 3.7
-and Visual Studio 2015.
+The library is meant to be compiled using C++14 standard, however many parts of
+the library can be used with C++11. Library is tested in GCC 5, Clang 3.7 and
+Visual Studio 2015.
 
-## Library structure
+## Examples
 
 There is currently no pretty documentation e.g. in form of Doxygen (I hope this
-will change in the future), however every part of the library features an example
-in the [examples](examples) directory. All examples have their own makefile and
-Visual Studio project and should demonstrate usage of library feature with short
-comment.
+will change in the future), however every part of the library features an
+example in the [examples](examples) directory.
+
+Examples are built using CMake. If you use Linux-like environment, just issue
+these commands to build the examples:
+
+```
+mkdir build; cd build
+cmake ..; make
+```
+Example executables can be found in `build/examples`
+
+If you use Windows environment, use an IDE supporting CMake, Cygwin or generate
+Visual Studio project using CMake.
+
+## Library structure
 
 The library contains following features:
 
@@ -41,7 +50,7 @@ The library contains following features:
   etc.
 
 - **type** - various traits (int type of at least size, has member function),
-  tagged types
+  tagged types, etc.
 
 ## Contributions & issues
 
