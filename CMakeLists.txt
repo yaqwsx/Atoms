@@ -40,4 +40,5 @@ FOREACH(example ${examples_list})
     ADD_SUBDIRECTORY("${PROJECT_SOURCE_DIR}/examples/${example}")
 ENDFOREACH()
 
-# Future ToDo: Build atoms test here
+# Build Atoms tests
+ADD_SUBDIRECTORY("${PROJECT_SOURCE_DIR}/tests")

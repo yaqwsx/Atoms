@@ -16,15 +16,15 @@
 namespace atoms {
 
 // Declare test for presence of methods
-GENERATE_HAS_MEMBER(init);
-GENERATE_HAS_MEMBER(increase_size);
-GENERATE_HAS_MEMBER(get_data_size);
-GENERATE_HAS_MEMBER(set_command);
-GENERATE_HAS_MEMBER(get_command);
-GENERATE_HAS_MEMBER(set_address);
-GENERATE_HAS_MEMBER(get_address);
-GENERATE_HAS_MEMBER(push_data);
-GENERATE_HAS_MEMBER(get_data);
+GENERATE_HAS_MEMBER(init)
+GENERATE_HAS_MEMBER(increase_size)
+GENERATE_HAS_MEMBER(get_data_size)
+GENERATE_HAS_MEMBER(set_command)
+GENERATE_HAS_MEMBER(get_command)
+GENERATE_HAS_MEMBER(set_address)
+GENERATE_HAS_MEMBER(get_address)
+GENERATE_HAS_MEMBER(push_data)
+GENERATE_HAS_MEMBER(get_data)
 
 template <size_t SIZE, size_t DATA_SIZE, class... Objects>
 class PacketPart {

@@ -152,14 +152,14 @@ auto operator op (Tagged<Base1, TagType, TagMerge>& a, const Other& b)          
 }                                                                                                 \
 
 
-GENERATE_TAGGED_OPERATOR(-, Operator::SUBTRACT);
-GENERATE_TAGGED_SHORT_OPERATOR(-=, Operator::SUBTRACT);
-GENERATE_TAGGED_OPERATOR(+, Operator::ADD);
-GENERATE_TAGGED_SHORT_OPERATOR(+=, Operator::ADD);
-GENERATE_TAGGED_OPERATOR(*, Operator::MULTIPLY);
-GENERATE_TAGGED_SHORT_OPERATOR(*=, Operator::MULTIPLY);
-GENERATE_TAGGED_OPERATOR(/, Operator::DIVIDE);
-GENERATE_TAGGED_SHORT_OPERATOR(/=, Operator::DIVIDE);
+GENERATE_TAGGED_OPERATOR(-, Operator::SUBTRACT)
+GENERATE_TAGGED_SHORT_OPERATOR(-=, Operator::SUBTRACT)
+GENERATE_TAGGED_OPERATOR(+, Operator::ADD)
+GENERATE_TAGGED_SHORT_OPERATOR(+=, Operator::ADD)
+GENERATE_TAGGED_OPERATOR(*, Operator::MULTIPLY)
+GENERATE_TAGGED_SHORT_OPERATOR(*=, Operator::MULTIPLY)
+GENERATE_TAGGED_OPERATOR(/, Operator::DIVIDE)
+GENERATE_TAGGED_SHORT_OPERATOR(/=, Operator::DIVIDE)
 // ToDo: Other operators
 
 } // namespace atoms
