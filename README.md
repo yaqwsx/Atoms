@@ -17,7 +17,7 @@ Travis CI.
 
 ## Current Status
 
-[![Build Status](https://travis-ci.org/yaqwsx/atoms.png)](https://travis-ci.org/yaqwsx/atoms)
+[![Build Status](https://travis-ci.org/yaqwsx/Atoms.svg?branch=master)](https://travis-ci.org/yaqwsx/Atoms)
 
 ## Examples & Tests
 
