@@ -50,6 +50,16 @@ public:
         return reinterpret_cast<const CharType*>(&buffer[0]);
     }
     
+    // pointer to begin of buffer with formatted packet
+    const CharType* begin() const {
+        return raw();
+    }
+
+    // pointer to end of buffer with formatted packet
+    const CharType* end() const {
+        return raw() + raw_size();
+    }
+
     // retrieve command from formatted packet
     CharType get_command() const {
         return buffer[1] >> 4;
