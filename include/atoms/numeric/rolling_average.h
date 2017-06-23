@@ -1,7 +1,7 @@
 #pragma once
 
 // This file is part of 'Atoms' library - https://github.com/yaqwsx/atoms
-// Author: Jan 'yaqwsx' Mr·zek
+// Author: Jan 'yaqwsx' Mr√°zek
 
 #include <array>
 #include <initializer_list>
@@ -16,11 +16,6 @@ public:
     {
         std::fill(values.begin(), values.end(), T(0));
     };
-
-    RollingAverage(const std::initializer_list<T>& l) : sum(0), index(0)
-    {
-        std::copy(l.begin(), l.end(), values.begin());
-    }
 
     void push(const T& t) {
         sum += t - values[index];
@@ -37,6 +32,12 @@ public:
     T get_sum() {
         return sum;
     }
+
+    void clear(T t = 0) {
+        std::fill(values.begin(), values.end(), t);
+        sum = t * SIZE;
+    }
+    
 private:
     std::array<T, SIZE> values;
     T sum;
