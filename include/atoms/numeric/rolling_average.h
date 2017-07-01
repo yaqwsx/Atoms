@@ -14,7 +14,7 @@ class RollingAverage {
 public:
     RollingAverage() : sum(0), index(0)
     {
-        std::fill(values.begin(), values.end(), T(0));
+        std::fill(begin(), end(), T(0));
     };
 
     void push(const T& t) {
@@ -34,12 +34,14 @@ public:
     }
 
     void clear(T t = 0) {
-        std::fill(values.begin(), values.end(), t);
+        std::fill(begin(), end(), t);
         sum = t * SIZE;
     }
-    
+
+    T *begin() { return values; }
+    T *end() { return values + SIZE; }
 private:
-    std::array<T, SIZE> values;
+    T values[ SIZE ];
     T sum;
     size_t index;
 };
