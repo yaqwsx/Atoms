@@ -27,9 +27,9 @@ typename std::enable_if<type_of_size<I + F>::next_type::is_specialised>::type* =
 	return Fixed<I, F>::from_raw(static_cast<base_type>(result));
 }
 
-/*template <bit_width_type I, bit_width_type F>
-Fixed<I, F> multiply(const Fixed<I, F>& l, const Fixed<I, F>& r*//*,
-typename std::enable_if<!type_of_size<I + F>::next_type::is_specialised>::type* = 0*//*)
+template <bit_width_type I, bit_width_type F>
+Fixed<I, F> multiply(const Fixed<I, F>& l, const Fixed<I, F>& r,
+typename std::enable_if<!type_of_size<I + F>::next_type::is_specialised>::type* = 0)
 {
 	using base_type = typename Fixed<I, F>::base_type;
 
@@ -44,7 +44,7 @@ typename std::enable_if<!type_of_size<I + F>::next_type::is_specialised>::type* 
 	const base_type fraction = l_fra * r_fra;
 
 	return Fixed<I, F>::from_raw((integer << F) + middle1 + middle2 + (fraction >> F));
-}*/
+}
 
 template<bit_width_type I, bit_width_type F>
 Fixed<I, F> divide(const Fixed<I, F>& n, const Fixed<I, F>& d,
@@ -60,6 +60,25 @@ typename std::enable_if<type_of_size<I + F>::next_type::is_specialised>::type* =
 }
 
 template <bit_width_type I, bit_width_type F>
+Fixed<I, F> divide(const Fixed<I, F>& n, const Fixed<I, F>& d,
+typename std::enable_if<!type_of_size<I + F>::next_type::is_specialised>::type* = 0)
+{
+	using base_type = typename Fixed<I, F>::base_type;
+	base_type numerator = n.raw();
+	base_type denominator = d.raw();
+	base_type result = 0;
+	for ( bit_width_type i = 0; i != F + 1; i++ ) {
+		base_type r = numerator / denominator;
+		numerator = numerator - r * denominator;
+		numerator <<= 1;
+		result <<= 1;
+		result += r;
+	}
+
+	return Fixed<I, F>::from_raw( result );
+}
+
+template <bit_width_type I, bit_width_type F>
 class Fixed {
 	static_assert(type_of_size<I + F>::is_specialised, "invalid combination "
 	"of sizes");
@@ -70,12 +89,12 @@ public:
 	using signed_type    = typename base_type_info::signed_type;
 	using unsigned_type  = typename base_type_info::unsigned_type;
 
-	
+
 	static const base_type fractional_mask = ~((~base_type(0)) << F);
 	static const base_type integer_mask    = ~fractional_mask;
 
 	static const base_type one = base_type(1) << F;
-	
+
 	Fixed() : data(0) {}
 	Fixed(float n) : data(static_cast<base_type> (n * one)) {}
 	Fixed(double n) : data(static_cast<base_type> (n * one)) {}
