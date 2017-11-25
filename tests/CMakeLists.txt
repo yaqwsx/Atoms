@@ -1,14 +1,13 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
-PROJECT(AtomsTests)
-INCLUDE(ExternalProject)
+cmake_minimum_required(VERSION 3.0)
+project(AtomsTests)
+include(ExternalProject)
 
-FIND_PACKAGE(Git)
+find_package(Git)
 
-# Get Catch framework: https://github.com/philsquared/Catch/
 ExternalProject_Add(
     catch
     PREFIX ${CMAKE_BINARY_DIR}/catch
-    GIT_REPOSITORY https://github.com/philsquared/Catch.git
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
     TIMEOUT 10
     UPDATE_COMMAND ${GIT_EXECUTABLE} pull
     CONFIGURE_COMMAND ""
@@ -19,17 +18,17 @@ ExternalProject_Add(
 
 # Expose required variable (CATCH_INCLUDE_DIR) to parent scope
 ExternalProject_Get_Property(catch source_dir)
-SET(CATCH_INCLUDE_DIR ${source_dir}/include CACHE INTERNAL "Path to include folder for Catch")
+set(CATCH_INCLUDE_DIR ${source_dir}/single_include CACHE INTERNAL "Path to include folder for Catch")
 
 # Setup includes
-INCLUDE_DIRECTORIES(${CATCH_INCLUDE_DIR} ${COMMON_INCLUDES})
-INCLUDE_DIRECTORIES(${ATOMS_INCLUDE})
+include_directories(${CATCH_INCLUDE_DIR} ${COMMON_INCLUDES})
+include_directories(${ATOMS_INCLUDE})
 
 # Find all tests
-FILE(GLOB_RECURSE TESTS "*.cpp")
+file(GLOB_RECURSE TESTS "*.cpp")
 
 # Set test binary
-ADD_EXECUTABLE(tests ${TESTS})
-ADD_DEPENDENCIES(tests catch)
+add_executable(tests ${TESTS})
+add_dependencies(tests catch)
 
 enable_testing(true)
