@@ -50,7 +50,7 @@ TEST_CASE( "2D basic", "numeric/vector:2D") {
         auto r5 = -a;
         REQUIRE( r5.x == -1 ); REQUIRE( r5.y == -2 );
         auto r6 = a * b;
-        REQUIRE( r6.x == 3 ); REQUIRE( r6.y == 8 );
+        REQUIRE( r6 == 11 );
         REQUIRE( a * b == b * a );
 
         REQUIRE( V2{{3, 4}}.length() == Approx( 5 ) );

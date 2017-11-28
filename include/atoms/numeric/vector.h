@@ -117,7 +117,7 @@ struct Vector : public Storage,
         T ret = 0;
         for ( int i = 0; i != Size; i++ )
             ret += this->_elems[ i ] * o._elems[ i ];
-        ret;
+        return ret;
     }
 
     T length() const {
