@@ -113,10 +113,11 @@ struct Vector : public Storage,
         return ret;
     }
 
-    Vector operator*=( const Vector& o ) {
+    T operator*( const Vector& o ) {
+        T ret = 0;
         for ( int i = 0; i != Size; i++ )
-            this->_elems[ i ] *= o._elems[ i ];
-        return *this;
+            ret += this->_elems[ i ] * o._elems[ i ];
+        ret;
     }
 
     T length() const {
