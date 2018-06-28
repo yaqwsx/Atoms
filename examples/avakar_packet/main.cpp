@@ -4,7 +4,7 @@
 #include <algorithm>
 
 // This file is part of 'Atoms' library - https://github.com/yaqwsx/atoms
-// Author: Jan 'yaqwsx' Mr·zek
+// Author: Jan 'yaqwsx' Mr√°zek
 
 
 // This example demonstrates usage of AvakarPacket class. This class allows user
@@ -54,6 +54,8 @@ int main() {
     std::cout << "float value:  " << in.get<float>(5) << "\n";
     std::cout << "string:       " << in.get<char>(9) << in.get<char>(10) << "\n";
     
-    // Note: To reuse packet in, call in.reset()
+    // Note: To reuse packet in, call in.clear();
+    in.clear();
+        
     return 0;
 }
