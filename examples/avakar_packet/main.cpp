@@ -54,8 +54,8 @@ int main() {
     std::cout << "float value:  " << in.get<float>(5) << "\n";
     std::cout << "string:       " << in.get<char>(9) << in.get<char>(10) << "\n";
     
-    // Note: To reuse packet in, call in.clear();
-    in.clear();
+    // Note: To reuse packet in, call in
+    // in.clear();
         
     return 0;
 }
