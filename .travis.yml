@@ -2,7 +2,7 @@ language: cpp
 
 matrix:
   include:
-    - compiler: gcc
+    - compiler: gcc 5
       addons:
         apt:
           sources:
@@ -10,7 +10,15 @@ matrix:
           packages:
             - g++-5
       env: COMPILER=g++-5
-    - compiler: clang
+    - compiler: gcc 7
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env: COMPILER=g++-7
+    - compiler: clang 3.7
       addons:
         apt:
           sources:
@@ -19,6 +27,15 @@ matrix:
           packages:
             - clang-3.7
       env: COMPILER=clang++-3.7
+    - compiler: clang 6
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-6.0
+          packages:
+            - clang-6.0
+      env: COMPILER=clang++-6.0
 
 git:
   depth: 4
