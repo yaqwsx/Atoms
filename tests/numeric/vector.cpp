@@ -53,7 +53,8 @@ TEST_CASE( "2D basic", "numeric/vector:2D") {
         REQUIRE( r6 == 11 );
         REQUIRE( a * b == b * a );
 
-        REQUIRE( V2{{3, 4}}.length() == Approx( 5 ) );
+        V2 ref{{ 3, 4 }};
+        REQUIRE( ref.length() == Approx( 5 ) );
         REQUIRE( a.norm().length() == Approx( 1 ) );
     }
 }
