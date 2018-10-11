@@ -1,5 +1,9 @@
+#if __cplusplus__ >= 201703L
+
 #include <atoms/functional/match.h>
 #include <catch.hpp>
+
+
 
 struct X {};
 struct Y {};
@@ -47,3 +51,5 @@ TEST_CASE( "Basic usage" ) {
         REQUIRE( i == 1 );
     }
 }
+
+#endif
