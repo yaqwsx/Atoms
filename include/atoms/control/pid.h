@@ -60,8 +60,8 @@ public:
         T error(desired_value - input);
         state.integrator = state.integrator.get() + params.i * error * time_step;
 
-        Value<T, Clamped> output(params.p * error * time_step + state.integrator
-            - params.d * (input - state.last_input) * time_step,
+        Value<T, Clamped> output(params.p * error + state.integrator
+            - params.d * (input - state.last_input) / time_step,
             { params.bottom, params.top });
 
         state.last_input = input;
